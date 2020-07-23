@@ -9,10 +9,12 @@ Shipment management project for interview.
 * query all the post trades.
 
 ### query all the shipments in a trade:
-* At frist, a trade has one shipment, after spliting and merging, there are many shipments in a trade.
+* At frist, a trade has one shipment.
+* After spliting and merging, there are many shipments in a trade.
 
 ### change the quantity of a trade:
-* change the goods quantity of a trade, then the shipments' quantity in the trade will be chagned proportionally.
+* change the goods quantity of a trade.
+* the shipments' quantity in the trade will be chagned proportionally.
 
 ### split a shipment:
 * Split a shipment in multi shipments.
@@ -31,7 +33,7 @@ Shipment management project for interview.
 * For Enum item Names. 
 
 ### Exception
-* WebServiceException
+* WebServiceException include the api exceptions.
 
 ### API
 API document and test： Swagger. http://localhost:8080/swagger-ui.html
@@ -43,6 +45,8 @@ API response class: ModelJsonRespone.
 * result: the api data according to the biz.
 
 ## 3. Test
+Data initialized in launch, include one trade and five shipments (1 root shipment, 3 split shipments, 1 merged shipment).
+
 JUnit test, include:
 * service test cases.
 * controller test cases.
