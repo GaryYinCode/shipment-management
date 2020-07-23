@@ -54,4 +54,4 @@ JUnit test, include:
 ## 4. Deployment
 * JDK 1.8
 * Maven 3.x.
-* SpringBoot war.
+* SpringBoot jar emmbeded tomcat.
