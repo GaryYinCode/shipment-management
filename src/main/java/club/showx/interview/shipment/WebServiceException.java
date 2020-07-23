@@ -5,9 +5,11 @@ public class WebServiceException extends Exception {
     public final static int GENERIC = 2000000;
 
     //
-    public final static int SHIPMENT_SPLIT_QUANTITY_NOT_EQUALS = 2001001;
+    public final static int SHIPMENT_NOT_EXIST = 2001001;
+    public final static int SHIPMENT_TRADE_NOT_EXIST = 2001011;
 
-    public final static int SHIPMENT_MERGED_NOT_IN_SAME_TRADE = 2001101;
+    public final static int SHIPMENT_SPLIT_QUANTITY_NOT_EQUALS = 2001101;
+    public final static int SHIPMENT_MERGED_NOT_IN_SAME_TRADE = 2001201;
 
     //
     private int no;

@@ -81,4 +81,23 @@ public class TradeController extends AbstractController {
         //
         return returnValue;
     }
+
+
+    @RequestMapping(value = "/quantity/change", method = RequestMethod.PUT)
+    @ApiOperation(value = "Change the trade quantity.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", dataType = "string", name = "tradeid", value = "The trade id", defaultValue = "xyz-abc-efg", required = true),
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "quantity", value = "The new quantity", required = true)
+    })
+    public ModelJsonResponse<Boolean> changeQuantity(HttpServletRequest request, HttpServletResponse response,
+                                                     @RequestParam(value = "tradeid") String tradeId,
+                                                     @RequestParam(value = "quantity") int quantity) throws WebServiceException {
+        //
+        ModelJsonResponse<Boolean> returnValue = new ModelJsonResponse<Boolean>();
+
+        returnValue.setResult(shipmentService.changeTradeQuantity(tradeId, quantity));
+
+        //
+        return returnValue;
+    }
 }

@@ -3,17 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.showx.interview.shipment.mapper.TradeMapper">
-    <insert id="create" parameterType="club.showx.interview.shipment.entity.Trade">
+    <insert id="create" parameterType="Trade">
         INSERT INTO TRADE (ID, TITLE, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP)
         VALUES (#{id}, #{title}, #{quantity}, #{createDate}, #{createUserId}, #{createIp})
     </insert>
 
-    <select id="queryAll" resultType="club.showx.interview.shipment.entity.Trade">
+    <select id="queryAll" resultType="Trade">
         SELECT ID, TITLE, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP
         FROM TRADE
     </select>
 
-    <select id="getById" resultType="club.showx.interview.shipment.entity.Trade">
+    <select id="getById" resultType="Trade">
         SELECT ID, TITLE, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP
         FROM TRADE
         WHERE ID = #{id, jdbcType=VARCHAR}

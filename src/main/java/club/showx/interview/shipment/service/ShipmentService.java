@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +29,53 @@ public class ShipmentService implements Serializable {
     private TradeMapper tradeMapper;
     @Autowired
     private ShipmentMapper shipmentMapper;
+
+    @PostConstruct
+    private void init() {
+        try {
+            Trade trade = new Trade();
+
+            trade.setQuantity(600);
+            trade.setTitle("Auto initialized Trade");
+
+            trade.setCreateDate(new Date());
+            trade.setCreateUserId("user-1000");
+            trade.setCreateIp("127.0.0.1");
+
+            trade = createTrade(trade);
+            if (trade != null) {
+                List<Shipment> shipments = queryShipmentsByTrade(trade.getId());
+
+                for (Shipment shipment : shipments) {
+                    if (shipment.getTradeId().equals(trade.getId())) {
+                        List<Integer> quantities = new ArrayList<Integer>();
+                        quantities.add(100);
+                        quantities.add(200);
+                        quantities.add(300);
+
+                        //
+                        List<String> mergedIds = new ArrayList<String>();
+
+                        int idx = 0;
+                        List<Shipment> splitShipments = splitShipment(shipment.getId(), quantities);
+                        for (Shipment splitShipment : splitShipments) {
+                            mergedIds.add(splitShipment.getId());
+
+                            idx++;
+
+                            if (idx >= 2) {
+                                break;
+                            }
+                        }
+
+                        mergeShipments(trade.getId(), mergedIds);
+                    }
+                }
+            }
+        } catch (WebServiceException e) {
+
+        }
+    }
 
     //trade related apis
     @Transactional
@@ -78,13 +126,19 @@ public class ShipmentService implements Serializable {
 
         //1. get the trade and check its quantity.
         Trade trade = tradeMapper.getById(tradeId);
-        if (trade != null && trade.getQuantity() != quantity) {
+        if (trade == null) {
+            throw new WebServiceException(WebServiceException.SHIPMENT_TRADE_NOT_EXIST, "The trade isn't exist.");
+        }
+
+        //2. check the quantity
+        if (trade.getQuantity() != quantity) {
+            //3. change shipments quantity
             List<Shipment> tradeShipments = shipmentMapper.queryByTradeId(trade.getId());
             for (Shipment shipment : tradeShipments) {
                 shipmentMapper.updateQuantity(shipment.getId(), quantity / trade.getQuantity() * shipment.getQuantity());
             }
 
-            //
+            //4. chang the trade quantity.
             tradeMapper.updateQuantity(trade.getId(), quantity);
 
             //
@@ -97,6 +151,12 @@ public class ShipmentService implements Serializable {
 
     //the shipment related apis.
     public List<Shipment> queryShipmentsByTrade(String tradeId) throws WebServiceException {
+        //1. get the shipment and check the quantity
+        Trade trade = tradeMapper.getById(tradeId);
+        if (trade == null) {
+            throw new WebServiceException(WebServiceException.SHIPMENT_TRADE_NOT_EXIST, "The trade isn't exist.");
+        }
+
         return shipmentMapper.queryByTradeId(tradeId);
     }
 
@@ -106,6 +166,10 @@ public class ShipmentService implements Serializable {
 
         //1. get the shipment and check the quantity
         Shipment shipment = shipmentMapper.getById(shipmentId);
+        if (shipment == null) {
+            throw new WebServiceException(WebServiceException.SHIPMENT_SPLIT_QUANTITY_NOT_EQUALS, "Split quantities sum is not equals to shipment quantity.");
+        }
+
         if (Utils.sum(splitQuantities) == shipment.getQuantity()) {
             //2. create the split shipments
             for (int quantity : splitQuantities) {

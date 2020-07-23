@@ -17,7 +17,7 @@ public interface ShipmentMapper extends Serializable {
 
     public List<Shipment> queryAll();
 
-    public List<Shipment> queryByIds(Collection<String> ids);
+    public List<Shipment> queryByIds(@Param("ids") Collection<String> ids);
 
     public List<Shipment> queryByTradeId(@Param("tradeId") String tradeId);
 
