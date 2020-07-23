@@ -79,7 +79,6 @@ class ShipmentServiceTests {
     @Test
     void splitShipment() {
         try {
-            System.out.println("%%%%%%%%%%%%%%%%%%%%%%" + tradeId);
             List<Shipment> shipments = shipmentService.queryShipmentsByTrade(tradeId);
             for (Shipment shipment : shipments) {
                 if (shipment.getTradeId().equals(tradeId)) {

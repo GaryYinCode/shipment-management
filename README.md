@@ -4,15 +4,20 @@ Shipment management project for interview.
 ## 1. Reqirement
 ### Post Trade: 
 * post a trade with title and goods quantity.
+
 ### query all trades:
 * query all the post trades.
+
 ### query all the shipments in a trade:
 * At frist, a trade has one shipment, after spliting and merging, there are many shipments in a trade.
+
 ### change the quantity of a trade:
 * change the goods quantity of a trade, then the shipments' quantity in the trade will be chagned proportionally.
+
 ### split a shipment:
 * Split a shipment in multi shipments.
 * split shipments' quantity sum equals to the original shipment quantity.
+
 ### merge some shipments into one shipment:
 * Merge two or more shipments in a trade into one shipment.
 
