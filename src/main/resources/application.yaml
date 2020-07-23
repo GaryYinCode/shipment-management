@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: management
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    schema: classpath:scripts/db/schema.sql
+    data: classpath:scripts/db/data.sql
+    url: jdbc:h2:mem:SHIPMENT
+    username: sa
+    password: sa
+  h2:
+    console:
+      enabled: true
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: club.showx.interview.shipment.entity

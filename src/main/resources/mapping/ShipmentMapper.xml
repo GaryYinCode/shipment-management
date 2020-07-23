@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.showx.interview.shipment.mapper.ShipmentMapper">
+    <insert id="create" parameterType="Shipment">
+        INSERT INTO SHIPMENT (ID, TRADEID, TYPE, SPLITID, OPERATETYPE, MERGEDID, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP)
+        VALUES (#{id}, #{tradeId}, #{type}, #{splitId}, #{operateType}, #{mergedId}, #{quantity}, #{createDate}, #{createUserId}, #{createIp})
+    </insert>
+
+    <select id="queryAll" resultType="Shipment">
+        SELECT ID,
+               TRADEID,
+               TYPE,
+               SPLITID,
+               OPERATETYPE,
+               MERGEDID,
+               QUANTITY,
+               CREATEDATE,
+               CREATEUSERID,
+               CREATEIP
+        FROM SHIPMENT
+    </select>
+
+    <select id="queryByIds" parameterType="java.util.List" resultType="Shipment">
+        SELECT ID,
+        TRADEID,
+        TYPE,
+        SPLITID,
+        OPERATETYPE,
+        MERGEDID,
+        QUANTITY,
+        CREATEDATE,
+        CREATEUSERID,
+        CREATEIP
+        FROM SHIPMENT
+        WHERE ID IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryByTradeId" resultType="Shipment">
+        SELECT ID,
+               TRADEID,
+               TYPE,
+               SPLITID,
+               OPERATETYPE,
+               MERGEDID,
+               QUANTITY,
+               CREATEDATE,
+               CREATEUSERID,
+               CREATEIP
+        FROM SHIPMENT
+        WHERE TRADEID = #{tradeId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryBySplitId" resultType="Shipment">
+        SELECT ID,
+               TRADEID,
+               TYPE,
+               SPLITID,
+               OPERATETYPE,
+               MERGEDID,
+               QUANTITY,
+               CREATEDATE,
+               CREATEUSERID,
+               CREATEIP
+        FROM SHIPMENT
+        WHERE SPLITID = #{splitId, jdbcType=VARCHAR}
+          AND TYPE = 2
+    </select>
+
+    <select id="queryByMergedId" resultType="Shipment">
+        SELECT ID,
+               TRADEID,
+               TYPE,
+               SPLITID,
+               OPERATETYPE,
+               MERGEDID,
+               QUANTITY,
+               CREATEDATE,
+               CREATEUSERID,
+               CREATEIP
+        FROM SHIPMENT
+        WHERE MERGEDID = #{mergedId, jdbcType=VARCHAR}
+          AND OPERATETYPE = 2
+    </select>
+
+    <select id="getById" resultType="Shipment">
+        SELECT ID,
+               TRADEID,
+               TYPE,
+               SPLITID,
+               OPERATETYPE,
+               MERGEDID,
+               QUANTITY,
+               CREATEDATE,
+               CREATEUSERID,
+               CREATEIP
+        FROM SHIPMENT
+        WHERE ID = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateQuantity">
+        UPDATE SHIPMENT
+        SET QUANTITY = #{quantity }
+        WHERE ID = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateOperate">
+        UPDATE SHIPMENT
+        SET TYPE        = #{type},
+            SPLITID     = #{splitId},
+            OPERATETYPE = #{operateType},
+            MERGEDID    = #{mergedId}
+        WHERE ID = #{id, jdbcType=VARCHAR}
+    </update>
+</mapper>

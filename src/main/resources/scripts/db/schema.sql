@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS TRADE;
+CREATE TABLE TRADE
+(
+  ID           VARCHAR(36)  NOT NULL COMMENT 'id, PK',
+  TITLE        VARCHAR(128) NULL COMMENT 'title',
+  QUANTITY     INT(11)      NOT NULL DEFAULT 0 COMMENT 'quantity',
+  CREATEDATE   TIMESTAMP(6) NULL     DEFAULT CURRENT_TIMESTAMP(6) COMMENT 'create date',
+  CREATEUSERID VARCHAR(36)  NULL COMMENT 'create user id',
+  CREATEIP     VARCHAR(16)  NULL COMMENT 'create ip',
+  PRIMARY KEY (ID)
+);
+
+DROP TABLE IF EXISTS SHIPMENT;
+CREATE TABLE SHIPMENT
+(
+  ID           VARCHAR(36)  NOT NULL COMMENT 'id, PK',
+  TRADEID      VARCHAR(36)  NOT NULL COMMENT 'trade id',
+  TYPE         INT          NULL     DEFAULT 1 COMMENT 'shipment type: 1=root, 2=split, 3=merge.',
+  SPLITID      VARCHAR(36)  NULL COMMENT 'the id which the shipment was split from',
+  OPERATETYPE  INT          NULL     DEFAULT 0 COMMENT 'operate type: 0=none, 1=split, 2=merged.',
+  MERGEDID     VARCHAR(36)  NULL COMMENT 'the id which the shipment was merged to',
+  QUANTITY     INT(11)      NOT NULL DEFAULT 0 COMMENT 'quantity',
+  CREATEDATE   TIMESTAMP(6) NULL     DEFAULT CURRENT_TIMESTAMP(6) COMMENT 'create date',
+  CREATEUSERID VARCHAR(36)  NULL COMMENT 'create user id',
+  CREATEIP     VARCHAR(16)  NULL COMMENT 'create ip',
+  PRIMARY KEY (ID)
+);
+
+CREATE INDEX IDX_SHIPMENT_TRADEID ON SHIPMENT (TRADEID);

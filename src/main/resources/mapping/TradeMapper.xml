@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.showx.interview.shipment.mapper.TradeMapper">
+    <insert id="create" parameterType="club.showx.interview.shipment.entity.Trade">
+        INSERT INTO TRADE (ID, TITLE, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP)
+        VALUES (#{id}, #{title}, #{quantity}, #{createDate}, #{createUserId}, #{createIp})
+    </insert>
+
+    <select id="queryAll" resultType="club.showx.interview.shipment.entity.Trade">
+        SELECT ID, TITLE, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP
+        FROM TRADE
+    </select>
+
+    <select id="getById" resultType="club.showx.interview.shipment.entity.Trade">
+        SELECT ID, TITLE, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP
+        FROM TRADE
+        WHERE ID = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateQuantity">
+        UPDATE TRADE
+        SET QUANTITY = #{quantity, jdbcType=INTEGER}
+        WHERE ID = #{id, jdbcType=VARCHAR}
+    </update>
+</mapper>
