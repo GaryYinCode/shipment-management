@@ -45,7 +45,7 @@ API response class: ModelJsonRespone.
 ## 3. Test
 JUnit test, include:
 * service test cases.
-* controller test cases.
+* controller test cases. (Please start the application in advanced.)
 
 ## 4. Deployment
 * JDK 1.8
