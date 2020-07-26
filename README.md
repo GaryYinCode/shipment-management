@@ -47,9 +47,10 @@ API response class: ModelJsonRespone.
 ## 3. Test
 Data initialized in launch, include one trade and five shipments (1 root shipment, 3 split shipments, 1 merged shipment).
 
-JUnit test, include:
+JUnit test, include: Please start the application in advanced.
 * service test cases.
-* controller test cases. (Please start the application in advanced.)
+* WebServiceException test cases.
+* controller test cases. 
 
 ## 4. Deployment
 * JDK 1.8

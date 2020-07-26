@@ -3,6 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.showx.interview.shipment.mapper.ShipmentMapper">
+    <resultMap type="Shipment" id="ShipmentMap">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="TRADEID" property="tradeId" jdbcType="VARCHAR"/>
+        <result column="TYPE" property="type" jdbcType="INTEGER"/>
+        <result column="SPLITID" property="splitId" jdbcType="VARCHAR"/>
+        <result column="OPERATETYPE" property="operateType" jdbcType="INTEGER"/>
+        <result column="MERGEDID" property="mergedId" jdbcType="VARCHAR"/>
+        <result column="QUANTITY" property="quantity" jdbcType="INTEGER"/>
+        <result column="CREATEDATE" property="createDate" jdbcType="VARCHAR"/>
+        <result column="CREATEUSERID" property="createUserId" jdbcType="VARCHAR"/>
+        <result column="CREATEIP" property="createIp" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="create" parameterType="Shipment">
         INSERT INTO SHIPMENT (ID, TRADEID, TYPE, SPLITID, OPERATETYPE, MERGEDID, QUANTITY, CREATEDATE, CREATEUSERID, CREATEIP)
         VALUES (#{id}, #{tradeId}, #{type}, #{splitId}, #{operateType}, #{mergedId}, #{quantity}, #{createDate}, #{createUserId}, #{createIp})

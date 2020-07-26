@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/api/shipment")
 public class ShipmentController extends AbstractController {
 
-    @RequestMapping(value = "/split", method = RequestMethod.PUT)
+    @RequestMapping(value = "/split", method = RequestMethod.POST)
     @ApiOperation(value = "Split the shipment to multi shipments.")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", dataType = "string", name = "shipmentid", value = "The split shipment id", defaultValue = "xyz-abc-efg", required = true),
@@ -39,7 +39,7 @@ public class ShipmentController extends AbstractController {
         return returnValue;
     }
 
-    @RequestMapping(value = "/merge", method = RequestMethod.PUT)
+    @RequestMapping(value = "/merge", method = RequestMethod.POST)
     @ApiOperation(value = "Split the shipment to multi shipments.")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", dataType = "string", name = "tradeid", value = "The trade id", defaultValue = "xyz-abc-efg", required = true),

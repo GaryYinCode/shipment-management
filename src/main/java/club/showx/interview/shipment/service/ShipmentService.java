@@ -32,6 +32,7 @@ public class ShipmentService implements Serializable {
 
     @PostConstruct
     private void init() {
+        //just for init the h2 database.
         try {
             Trade trade = new Trade();
 
@@ -135,7 +136,7 @@ public class ShipmentService implements Serializable {
             //3. change shipments quantity
             List<Shipment> tradeShipments = shipmentMapper.queryByTradeId(trade.getId());
             for (Shipment shipment : tradeShipments) {
-                shipmentMapper.updateQuantity(shipment.getId(), quantity / trade.getQuantity() * shipment.getQuantity());
+                shipmentMapper.updateQuantity(shipment.getId(), quantity * shipment.getQuantity() / trade.getQuantity());
             }
 
             //4. chang the trade quantity.
@@ -167,7 +168,7 @@ public class ShipmentService implements Serializable {
         //1. get the shipment and check the quantity
         Shipment shipment = shipmentMapper.getById(shipmentId);
         if (shipment == null) {
-            throw new WebServiceException(WebServiceException.SHIPMENT_SPLIT_QUANTITY_NOT_EQUALS, "Split quantities sum is not equals to shipment quantity.");
+            throw new WebServiceException(WebServiceException.SHIPMENT_NOT_EXIST, "Shipment isn't exist.");
         }
 
         if (Utils.sum(splitQuantities) == shipment.getQuantity()) {

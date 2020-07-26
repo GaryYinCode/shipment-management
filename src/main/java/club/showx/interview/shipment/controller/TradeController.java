@@ -83,7 +83,7 @@ public class TradeController extends AbstractController {
     }
 
 
-    @RequestMapping(value = "/quantity/change", method = RequestMethod.PUT)
+    @RequestMapping(value = "/quantity/change", method = RequestMethod.POST)
     @ApiOperation(value = "Change the trade quantity.")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", dataType = "string", name = "tradeid", value = "The trade id", defaultValue = "xyz-abc-efg", required = true),
