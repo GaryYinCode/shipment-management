@@ -28,6 +28,7 @@ class ShipmentServiceTests {
 
     //
     private static String tradeId = null;
+    private static List<String> mergedShipmentIds = new ArrayList<String>();
 
     @Test
     void stepAPostTrade() {
@@ -129,7 +130,7 @@ class ShipmentServiceTests {
     }
 
     @Test
-    void stepDSplitMergeShipment() {
+    void stepDSplitShipment() {
         try {
             List<Shipment> shipments = shipmentService.queryShipmentsByTrade(tradeId);
             for (Shipment shipment : shipments) {
@@ -144,11 +145,9 @@ class ShipmentServiceTests {
                 Assert.assertTrue("split shipment failed.", splitShipments != null && splitShipments.size() == 3);
 
                 //
-                List<String> mergedIds = new ArrayList<String>();
                 int idx = 0;
-
                 for (Shipment splitShipment : splitShipments) {
-                    mergedIds.add(splitShipment.getId());
+                    mergedShipmentIds.add(splitShipment.getId());
 
                     idx++;
 
@@ -156,15 +155,26 @@ class ShipmentServiceTests {
                         break;
                     }
                 }
+            }
+        } catch (Exception e) {
+            logger.error("Split shipment failed.", e);
 
-                Shipment mergedShipment = shipmentService.mergeShipments(tradeId, mergedIds);
+            Assert.assertTrue("Split shipment failed.", false);
+        }
+    }
+
+    @Test
+    void stepFMergeShipments() {
+        try {
+            if (mergedShipmentIds.size() > 1) {
+                Shipment mergedShipment = shipmentService.mergeShipments(tradeId, mergedShipmentIds);
 
                 Assert.assertTrue("merge shipment failed.", mergedShipment != null);
             }
         } catch (Exception e) {
-            logger.error("Split/merge shipment failed.", e);
+            logger.error("merge shipment failed.", e);
 
-            Assert.assertTrue("Split/merge shipment failed.", false);
+            Assert.assertTrue("merge shipment failed.", false);
         }
     }
 }

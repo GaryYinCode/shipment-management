@@ -213,6 +213,10 @@ public class ShipmentService implements Serializable {
     public Shipment mergeShipments(String tradeId, Collection<String> mergedIds) throws WebServiceException {
         Shipment returnValue = null;
 
+        if (mergedIds == null || mergedIds.size() < 2) {
+            throw new WebServiceException(WebServiceException.SHIPMENT_MERGED_SIZE_LESS_THAN_2, "Merged shipments size is less than 2.");
+        }
+
         //1. query the shipments to merged
         List<String> ids = new ArrayList<String>();
         ids.addAll(mergedIds);

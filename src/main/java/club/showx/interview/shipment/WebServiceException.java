@@ -10,6 +10,7 @@ public class WebServiceException extends Exception {
 
     public final static int SHIPMENT_SPLIT_QUANTITY_NOT_EQUALS = 2001101;
     public final static int SHIPMENT_MERGED_NOT_IN_SAME_TRADE = 2001201;
+    public final static int SHIPMENT_MERGED_SIZE_LESS_THAN_2 = 2001202;
 
     //
     private int no;
